@@ -204,7 +204,7 @@ export default function AdminAddProduct() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs text-ink/60 mb-1.5 block">Prix (DH)</label>
+              <label className="text-xs text-ink/60 mb-1.5 block">Prix (DA)</label>
               <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="0"
                 className="w-full h-11 px-3.5 rounded-xl border border-bordergray bg-white text-sm focus:border-burgundy outline-none" />
             </div>
@@ -329,8 +329,8 @@ export default function AdminAddProduct() {
               <div className="flex-1 min-w-0">
                 <p className="font-serif text-sm truncate">{name || 'Nom du produit'}</p>
                 <div className="flex items-baseline gap-1.5 mt-0.5">
-                  {Number(discount) > 0 && <span className="text-xs text-ink/40 line-through">{Number(price).toFixed(0)} DH</span>}
-                  <span className="text-sm font-semibold text-burgundy">{finalPrice.toFixed(0)} DH</span>
+                  {Number(discount) > 0 && <span className="text-xs text-ink/40 line-through">{Number(price).toFixed(0)} DA</span>}
+                  <span className="text-sm font-semibold text-burgundy">{finalPrice.toFixed(0)} DA</span>
                 </div>
                 <div className="flex gap-1.5 mt-2">
                   {variants.map((v, i) => (

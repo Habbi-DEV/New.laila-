@@ -51,7 +51,7 @@ export default function AdminProducts() {
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">{p.name}</p>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-xs text-burgundy font-semibold">{fp.toFixed(0)} DH</span>
+                    <span className="text-xs text-burgundy font-semibold">{fp.toFixed(0)} DA</span>
                     {Number(p.discount) > 0 && <span className="text-[10px] text-ink/40 line-through">{Number(p.price).toFixed(0)}</span>}
                     <span className={`text-[10px] px-2 py-0.5 rounded-full ${p.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-ink/10 text-ink/50'}`}>{p.status === 'active' ? 'Actif' : 'Brouillon'}</span>
                   </div>
