@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-white: #FFFFFF;
+  --color-softgray: #F5F5F7;
+  --color-bordergray: #E5E5E5;
+  --color-burgundy: #8B1E3F;
+  --color-burgundy-dark: #6E1830;
+  --color-rose: #B24A5A;
+  --color-gold: #C9A96E;
+  --color-ink: #1A1A1A;
+
+  --font-serif: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 4px 24px -8px rgba(0,0,0,0.08);
+  --shadow-card: 0 8px 40px -12px rgba(0,0,0,0.10);
+  --shadow-lift: 0 16px 56px -16px rgba(139,30,63,0.18);
+
+  --radius-card: 16px;
+  --radius-chip: 12px;
+}
+
+:root { color-scheme: light; }
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-softgray);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,h2,h3,h4 { font-family: var(--font-serif); letter-spacing: -0.01em; }
+
+/* Luxury scrollbar - thin */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: #d8d8dc; border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* hide scrollbar for horizontal carousels */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* tap feedback utility */
+.tap { transition: transform .12s ease, background .2s ease, color .2s ease, box-shadow .2s ease; }
+.tap:active { transform: scale(0.97); }
+
+/* serif italic accent */
+.serif-italic { font-family: var(--font-serif); font-style: italic; }
+
+/* gold hairline */
+.gold-line { background: linear-gradient(90deg, transparent, var(--color-gold), transparent); height: 1px; }
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.shimmer { background: linear-gradient(90deg, #efeff1 25%, #f6f6f8 37%, #efeff1 63%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
