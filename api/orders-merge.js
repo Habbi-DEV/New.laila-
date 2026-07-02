@@ -1,4 +1,5 @@
 import supabase from './db-client.js';
+import { verifyAdmin } from './verify-admin.js';
 
 function productsTotal(items) {
   return (items || []).reduce((s, it) => s + Number(it.qty || 0) * Number(it.price || 0), 0);
@@ -9,6 +10,10 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(204).end();
+
+  const admin = await verifyAdmin(req);
+  if (!admin) return res.status(403).json({ error: 'Accès administrateur requis' });
+
   try {
     if (req.method === 'POST') {
       const { primary_id, secondary_ids } = req.body;
@@ -28,9 +33,7 @@ export default async function handler(req, res) {
       const shippingPrice = ship ? Number(ship.shipping_price) : 0;
       const grandTotal = pTotal + shippingPrice;
 
-      const { data: updated, error: uerr } = await supabase.from('orders').update({
-        items: combined, total: grandTotal
-      }).eq('id', primary.id).select().single();
+      const { data: updated, error: uerr } = await supabase.from('orders').update({ items: combined, total: grandTotal }).eq('id', primary.id).select().single();
       if (uerr) throw uerr;
 
       const { error: merr } = await supabase.from('order_merges').insert(

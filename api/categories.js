@@ -1,8 +1,9 @@
 import supabase from './db-client.js';
+import { verifyAdmin } from './verify-admin.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(204).end();
   try {
@@ -11,6 +12,9 @@ export default async function handler(req, res) {
       if (error) throw error;
       return res.status(200).json(data);
     }
+    // POST requires admin
+    const admin = await verifyAdmin(req);
+    if (!admin) return res.status(403).json({ error: 'Accès administrateur requis' });
     if (req.method === 'POST') {
       const { name, slug, image } = req.body;
       const { data, error } = await supabase.from('categories').insert({ name, slug, image }).select().single();

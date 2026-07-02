@@ -1,4 +1,5 @@
 import supabase from './db-client.js';
+import { verifyAdmin } from './verify-admin.js';
 
 function withCategoryName(products, categories) {
   const cmap = new Map(categories.map(c => [c.id, c]));
@@ -21,7 +22,15 @@ function attachVariantsSummary(products, variants) {
     const cover = def?.images?.[0] || pv[0]?.images?.[0] || null;
     const colors = pv.map(v => ({ hex: v.color_hex, name: v.color_name, type: v.color_type }));
     const totalStock = pv.reduce((s, v) => s + ((v.sizes || []).reduce((q, sz) => q + Number(sz.stock || 0), 0)), 0);
-    return { ...p, cover_image: cover, colors, in_stock: totalStock > 0 };
+    // Collect unique available sizes (stock > 0) across all variants
+    const sizeSet = new Set();
+    for (const v of pv) {
+      for (const sz of (v.sizes || [])) {
+        if (Number(sz.stock) > 0) sizeSet.add(sz.size);
+      }
+    }
+    const sizes = [...sizeSet].sort((a, b) => Number(a) - Number(b));
+    return { ...p, cover_image: cover, colors, in_stock: totalStock > 0, sizes };
   });
 }
 
@@ -53,29 +62,28 @@ export default async function handler(req, res) {
       const out = withCategoryName(products, categories);
 
       if (id) {
-        const { data: variants, error: verr } = await supabase
-          .from('product_variants').select('*').eq('product_id', Number(id))
-          .order('is_default', { ascending: false });
+        const { data: variants, error: verr } = await supabase.from('product_variants').select('*').eq('product_id', Number(id)).order('is_default', { ascending: false });
         if (verr) throw verr;
         return res.status(200).json({ product: out[0], variants });
       }
 
-      // attach variant summaries for list view
       const pids = out.map(p => p.id);
       let variants = [];
       if (pids.length) {
-        const { data: vdata, error: verr2 } = await supabase
-          .from('product_variants').select('*').in('product_id', pids);
+        const { data: vdata, error: verr2 } = await supabase.from('product_variants').select('*').in('product_id', pids);
         if (verr2) throw verr2;
         variants = vdata || [];
       }
       return res.status(200).json(attachVariantsSummary(out, variants));
     }
+
+    const admin = await verifyAdmin(req);
+    if (!admin) return res.status(403).json({ error: 'Accès administrateur requis' });
+
     if (req.method === 'POST') {
       const { name, description, category_id, price, discount, status, featured } = req.body;
       const { data, error } = await supabase.from('products').insert({
-        name, description, category_id, price, discount: discount || 0,
-        status: status || 'draft', featured: !!featured,
+        name, description, category_id, price, discount: discount || 0, status: status || 'draft', featured: !!featured,
       }).select().single();
       if (error) throw error;
       return res.status(201).json(data);

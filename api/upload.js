@@ -1,10 +1,15 @@
 import supabase from './db-client.js';
+import { verifyAdmin } from './verify-admin.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(204).end();
+
+  const admin = await verifyAdmin(req);
+  if (!admin) return res.status(403).json({ error: 'Accès administrateur requis' });
+
   try {
     if (req.method === 'POST') {
       const { fileName, fileBase64, contentType } = req.body;

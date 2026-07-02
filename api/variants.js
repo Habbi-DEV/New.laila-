@@ -1,4 +1,5 @@
 import supabase from './db-client.js';
+import { verifyAdmin } from './verify-admin.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -12,8 +13,12 @@ export default async function handler(req, res) {
       if (error) throw error;
       return res.status(200).json(data);
     }
+
+    // All mutations require admin
+    const admin = await verifyAdmin(req);
+    if (!admin) return res.status(403).json({ error: 'Accès administrateur requis' });
+
     if (req.method === 'POST') {
-      // supports single or batch (array)
       const body = req.body;
       const rows = Array.isArray(body) ? body : [body];
       const { data, error } = await supabase.from('product_variants').insert(rows).select();
@@ -21,7 +26,6 @@ export default async function handler(req, res) {
       return res.status(201).json(data);
     }
     if (req.method === 'PUT') {
-      // batch replace all variants for a product: { product_id, variants: [...] }
       const { product_id, variants } = req.body;
       await supabase.from('product_variants').delete().eq('product_id', product_id);
       if (variants && variants.length) {
