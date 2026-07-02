@@ -20,6 +20,7 @@ export interface Product {
   cover_image?: string;
   colors?: { hex: string; name: string; type: string }[];
   in_stock?: boolean;
+  sizes?: string[];
 }
 
 export interface SizeStock {
@@ -69,6 +70,15 @@ export interface OrderShipping {
   created_at: string;
 }
 
+export interface Customer {
+  id: number;
+  phone: string;
+  name: string | null;
+  is_blacklisted: boolean;
+  notes: string | null;
+  created_at: string;
+}
+
 export interface Order {
   id: number;
   customer_name: string;
@@ -81,6 +91,9 @@ export interface Order {
   items: CartItem[];
   created_at: string;
   shipping?: OrderShipping | null;
+  is_blacklisted?: boolean;
+  tracking_number?: string | null;
+  shipping_voucher_url?: string | null;
 }
 
 export const SHOE_SIZES = ['36', '37', '38', '39', '40', '41'];
