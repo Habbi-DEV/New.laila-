@@ -93,8 +93,8 @@ export default function ProductPage() {
           <p className="text-xs text-gold tracking-[0.2em] uppercase mb-1">{product.category_name}</p>
           <h1 className="font-serif text-2xl leading-tight">{product.name}</h1>
           <div className="flex items-baseline gap-2 mt-2">
-            {Number(product.discount) > 0 && <span className="text-base text-ink/40 line-through">{Number(product.price).toFixed(0)} DH</span>}
-            <span className="text-xl font-semibold text-burgundy">{final.toFixed(0)} DH</span>
+            {Number(product.discount) > 0 && <span className="text-base text-ink/40 line-through">{Number(product.price).toFixed(0)} DA</span>}
+            <span className="text-xl font-semibold text-burgundy">{final.toFixed(0)} DA</span>
             {Number(product.discount) > 0 && <span className="text-xs bg-burgundy/10 text-burgundy px-2 py-0.5 rounded-full">−{product.discount}%</span>}
           </div>
 
@@ -151,7 +151,7 @@ export default function ProductPage() {
         <div className="max-w-md mx-auto px-5 py-3 flex items-center gap-3">
           <div className="flex-1">
             <p className="text-[10px] text-ink/50 tracking-wide">Prix</p>
-            <p className="font-semibold text-burgundy">{final.toFixed(0)} DH</p>
+            <p className="font-semibold text-burgundy">{final.toFixed(0)} DA</p>
           </div>
           <button onClick={handleAdd} disabled={totalStock <= 0}
             className="tap flex-1 h-12 rounded-xl bg-burgundy text-white font-medium flex items-center justify-center gap-2 disabled:opacity-40">

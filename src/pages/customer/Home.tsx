@@ -40,7 +40,7 @@ export default function Home() {
           <div className="absolute bottom-0 left-0 p-6 text-white">
             <p className="serif-italic text-gold text-sm mb-1">Nouvelle Collection</p>
             <h1 className="font-serif text-3xl leading-tight">L'art de la<br/>distinction</h1>
-            <Link to="/cart" className="tap inline-flex items-center gap-2 mt-4 bg-white text-ink text-sm font-medium px-4 py-2.5 rounded-full">
+            <Link to="/shop" className="tap inline-flex items-center gap-2 mt-4 bg-white text-ink text-sm font-medium px-4 py-2.5 rounded-full">
               Découvrir <ArrowRight size={15} />
             </Link>
           </div>
@@ -50,7 +50,7 @@ export default function Home() {
           <h2 className="font-serif text-xl mb-3">Catégories</h2>
           <div className="grid grid-cols-2 gap-3">
             {categories.map((c, i) => (
-              <Link key={c.id} to={`/cart`} className="block">
+              <Link key={c.id} to={`/shop/${c.slug}`} className="block">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
@@ -68,7 +68,7 @@ export default function Home() {
         <section className="mt-9">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-serif text-xl">Coups de cœur</h2>
-            <Link to="/cart" className="text-xs text-burgundy tracking-wide">Tout voir</Link>
+            <Link to="/shop" className="text-xs text-burgundy tracking-wide">Tout voir</Link>
           </div>
           {loading ? <Spinner className="py-16" /> : err ? (
             <p className="text-sm text-rose text-center py-12">{err}</p>

@@ -34,7 +34,7 @@ export default function OrderConfirm() {
               <div className="flex justify-between text-sm py-1"><span className="text-ink/60">Livraison</span><span className="font-medium text-right">{order.address}, {order.city}</span></div>
               <div className="flex justify-between text-sm py-1"><span className="text-ink/60">Paiement</span><span className="font-medium">À la livraison</span></div>
               <div className="gold-line my-2" />
-              <div className="flex justify-between font-semibold"><span>Total</span><span className="text-burgundy">{Number(order.total).toFixed(0)} DH</span></div>
+              <div className="flex justify-between font-semibold"><span>Total</span><span className="text-burgundy">{Number(order.total).toFixed(0)} DA</span></div>
             </div>
             <Link to="/" className="tap inline-block mt-6 bg-burgundy text-white text-sm px-8 py-3 rounded-xl">Continuer mes achats</Link>
           </motion.div>

@@ -83,12 +83,12 @@ export default function Checkout() {
               <button onClick={() => set('delivery_type', 'home')} className={`tap p-3 rounded-xl border flex flex-col items-center gap-1 ${form.delivery_type === 'home' ? 'border-burgundy bg-burgundy/5' : 'border-bordergray'}`}>
                 <Home size={18} className={form.delivery_type === 'home' ? 'text-burgundy' : 'text-ink/50'} />
                 <span className="text-xs font-medium">À domicile</span>
-                <span className="text-[10px] text-ink/50">{selectedWilaya ? `${selectedWilaya.home_shipping_price} DH` : '—'}</span>
+                <span className="text-[10px] text-ink/50">{selectedWilaya ? `${selectedWilaya.home_shipping_price} DA` : '—'}</span>
               </button>
               <button onClick={() => set('delivery_type', 'desk')} className={`tap p-3 rounded-xl border flex flex-col items-center gap-1 ${form.delivery_type === 'desk' ? 'border-burgundy bg-burgundy/5' : 'border-bordergray'}`}>
                 <Store size={18} className={form.delivery_type === 'desk' ? 'text-burgundy' : 'text-ink/50'} />
                 <span className="text-xs font-medium">Bureau Stopdesk</span>
-                <span className="text-[10px] text-ink/50">{selectedWilaya ? `${selectedWilaya.desk_shipping_price} DH` : '—'}</span>
+                <span className="text-[10px] text-ink/50">{selectedWilaya ? `${selectedWilaya.desk_shipping_price} DA` : '—'}</span>
               </button>
             </div>
           </div>
@@ -109,13 +109,13 @@ export default function Checkout() {
         <section className="bg-white rounded-2xl p-4 shadow-soft mt-4">
           <div className="flex justify-between text-sm mb-2"><span className="font-medium">Récapitulatif</span><span className="text-ink/50">{items.length} article(s)</span></div>
           {items.map(i => (
-            <div key={i.key} className="flex justify-between text-xs text-ink/70 py-1"><span className="truncate flex-1 pr-2">{i.name} · {i.size}</span><span>{(i.qty * i.price).toFixed(0)} DH</span></div>
+            <div key={i.key} className="flex justify-between text-xs text-ink/70 py-1"><span className="truncate flex-1 pr-2">{i.name} · {i.size}</span><span>{(i.qty * i.price).toFixed(0)} DA</span></div>
           ))}
           <div className="gold-line my-2" />
-          <div className="flex justify-between text-sm text-ink/70"><span>Sous-total produits</span><span>{productsTotal.toFixed(0)} DH</span></div>
-          <div className="flex justify-between text-sm text-ink/70 mt-1"><span>Livraison ({form.delivery_type === 'desk' ? 'Stopdesk' : 'Domicile'}{selectedWilaya ? ` · ${selectedWilaya.name}` : ''})</span><span className={shippingPrice ? 'text-gold' : 'text-ink/40'}>{shippingPrice ? `${shippingPrice} DH` : '—'}</span></div>
+          <div className="flex justify-between text-sm text-ink/70"><span>Sous-total produits</span><span>{productsTotal.toFixed(0)} DA</span></div>
+          <div className="flex justify-between text-sm text-ink/70 mt-1"><span>Livraison ({form.delivery_type === 'desk' ? 'Stopdesk' : 'Domicile'}{selectedWilaya ? ` · ${selectedWilaya.name}` : ''})</span><span className={shippingPrice ? 'text-gold' : 'text-ink/40'}>{shippingPrice ? `${shippingPrice} DA` : '—'}</span></div>
           <div className="gold-line my-2" />
-          <div className="flex justify-between font-semibold"><span>Total à payer</span><span className="text-burgundy">{grandTotal.toFixed(0)} DH</span></div>
+          <div className="flex justify-between font-semibold"><span>Total à payer</span><span className="text-burgundy">{grandTotal.toFixed(0)} DA</span></div>
         </section>
 
         {err && <p className="text-sm text-rose mt-4 text-center">{err}</p>}
@@ -123,7 +123,7 @@ export default function Checkout() {
 
       <div className="fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur-xl border-t border-bordergray/70 pb-[env(safe-area-inset-bottom)]">
         <div className="max-w-md mx-auto px-5 py-3 flex items-center gap-3">
-          <div className="flex-1"><p className="text-[10px] text-ink/50">Total (COD)</p><p className="font-semibold text-burgundy">{grandTotal.toFixed(0)} DH</p></div>
+          <div className="flex-1"><p className="text-[10px] text-ink/50">Total (COD)</p><p className="font-semibold text-burgundy">{grandTotal.toFixed(0)} DA</p></div>
           <motion.button whileTap={{ scale: 0.97 }} onClick={submit} disabled={loading}
             className="tap h-12 px-8 rounded-xl bg-burgundy text-white font-medium flex items-center justify-center min-w-[160px]">
             {loading ? <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'Confirmer'}

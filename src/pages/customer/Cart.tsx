@@ -54,7 +54,7 @@ export default function Cart() {
                           <span className="w-7 text-center text-sm">{item.qty}</span>
                           <button onClick={() => updateQty(item.key, item.qty + 1)} className="tap w-7 h-7 flex items-center justify-center text-ink/70"><Plus size={13} /></button>
                         </div>
-                        <span className="font-semibold text-burgundy text-sm">{(item.qty * item.price).toFixed(0)} DH</span>
+                        <span className="font-semibold text-burgundy text-sm">{(item.qty * item.price).toFixed(0)} DA</span>
                       </div>
                     </div>
                     <button onClick={() => removeItem(item.key)} className="tap text-ink/30 hover:text-rose self-start"><Trash2 size={16} /></button>
@@ -63,10 +63,10 @@ export default function Cart() {
               </AnimatePresence>
             </div>
             <div className="mt-5 bg-white rounded-2xl p-4 shadow-soft space-y-2">
-              <div className="flex justify-between text-sm text-ink/70"><span>Sous-total</span><span>{total.toFixed(0)} DH</span></div>
+              <div className="flex justify-between text-sm text-ink/70"><span>Sous-total</span><span>{total.toFixed(0)} DA</span></div>
               <div className="flex justify-between text-sm text-ink/70"><span>Livraison</span><span className="text-gold">Offerte</span></div>
               <div className="gold-line my-1" />
-              <div className="flex justify-between font-semibold"><span>Total</span><span className="text-burgundy">{total.toFixed(0)} DH</span></div>
+              <div className="flex justify-between font-semibold"><span>Total</span><span className="text-burgundy">{total.toFixed(0)} DA</span></div>
             </div>
           </>
         )}

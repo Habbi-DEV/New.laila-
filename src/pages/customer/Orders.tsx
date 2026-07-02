@@ -29,12 +29,12 @@ export default function Orders() {
                 </div>
                 <div className="mt-3 space-y-1">
                   {(o.items || []).slice(0, 2).map((i: any, idx: number) => (
-                    <div key={idx} className="flex justify-between text-xs text-ink/70"><span className="truncate flex-1 pr-2">{i.name} · T.{i.size} ×{i.qty}</span><span>{(i.qty * i.price).toFixed(0)} DH</span></div>
+                    <div key={idx} className="flex justify-between text-xs text-ink/70"><span className="truncate flex-1 pr-2">{i.name} · T.{i.size} ×{i.qty}</span><span>{(i.qty * i.price).toFixed(0)} DA</span></div>
                   ))}
                   {(o.items || []).length > 2 && <p className="text-xs text-ink/40">+{o.items.length - 2} article(s)</p>}
                 </div>
                 <div className="gold-line my-2" />
-                <div className="flex justify-between font-semibold text-sm"><span>Total</span><span className="text-burgundy">{Number(o.total).toFixed(0)} DH</span></div>
+                <div className="flex justify-between font-semibold text-sm"><span>Total</span><span className="text-burgundy">{Number(o.total).toFixed(0)} DA</span></div>
               </div>
             ))}
           </div>
