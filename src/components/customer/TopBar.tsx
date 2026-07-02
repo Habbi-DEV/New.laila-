@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Settings } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cartCount } from '../../lib/cart';
 
@@ -26,7 +26,6 @@ export default function TopBar({ title, showBack = false }: { title?: string; sh
         )}
         <div className="flex items-center gap-1">
           {title && <span className="font-serif text-base text-ink/80 hidden sm:block">{title}</span>}
-          <Link to="/admin" className="tap p-2 text-ink/60"><Settings size={18} /></Link>
           <Link to="/cart" className="tap relative p-2 text-ink">
             <ShoppingBag size={20} />
             {count > 0 && (

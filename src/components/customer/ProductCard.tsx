@@ -33,8 +33,8 @@ export default function ProductCard({ product, index = 0 }: { product: CardProdu
           <h3 className="font-serif text-[15px] leading-snug text-ink truncate">{product.name}</h3>
           <div className="flex items-center justify-between mt-1">
             <div className="flex items-baseline gap-1.5">
-              {Number(product.discount) > 0 && <span className="text-xs text-ink/40 line-through">{Number(product.price).toFixed(0)} DH</span>}
-              <span className="text-sm font-semibold text-burgundy">{final.toFixed(0)} DH</span>
+              {Number(product.discount) > 0 && <span className="text-xs text-ink/40 line-through">{Number(product.price).toFixed(0)} DA</span>}
+              <span className="text-sm font-semibold text-burgundy">{final.toFixed(0)} DA</span>
             </div>
             {product.colors && product.colors.length > 0 && (
               <div className="flex -space-x-1">
